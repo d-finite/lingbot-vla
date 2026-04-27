@@ -91,6 +91,19 @@ class LingbotLehomePolicy:
 
         config.attention_implementation = "eager"
 
+        extra_fields = {
+            "resize_imgs_with_padding": [224, 224],
+            "adapt_to_pi_aloha": False,
+            "use_delta_joint_actions_aloha": False,
+            "proj_width": 768,
+            "num_steps": 10,
+            "use_cache": True,
+            "train_state_proj": True,
+        }
+        for k, v in extra_fields.items():
+            if not hasattr(config, k):
+                setattr(config, k, v)
+
         training_base_model = training_config["model"]["tokenizer_path"]
         if "paligemma" in training_base_model:
             model_name = "pi0"

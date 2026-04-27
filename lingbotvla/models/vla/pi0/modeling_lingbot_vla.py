@@ -1244,11 +1244,11 @@ class QwenvlWithExpertModel(PreTrainedModel):
         vlm_config.norm_qkv = self.config.norm_qkv
         if self.config.vocab_size != 0 and self.config.vocab_size != 257152 and vlm_config.vocab_size != self.config.vocab_size:
             vlm_config.vocab_size = self.config.vocab_size
-        self.qwenvl = Qwen2_5_VLForConditionalGeneration._from_config(vlm_config, use_flash_attention_2=True)
+        self.qwenvl = Qwen2_5_VLForConditionalGeneration._from_config(vlm_config, attn_implementation="eager")
         if self.config.use_lm_head:
             self.qwenvl.tie_weights()
         self.config.qwen_expert_config.norm_qkv = self.config.norm_qkv
-        self.qwen_expert = Qwen2ForCausalLM._from_config(self.config.qwen_expert_config, use_flash_attention_2=True, eval=eval)
+        self.qwen_expert = Qwen2ForCausalLM._from_config(self.config.qwen_expert_config, attn_implementation="eager", eval=eval)
 
         if getattr(self.config, 'adanorm_time', False):
             replace_lnorm_with_adanorm(self.qwen_expert, self.config.qwen_expert_config.hidden_size, self.config.qwen_expert_config.hidden_size, config.split_gate_liner, config.no_split_gate_liner, config.final_norm_adanorm, config.old_adanorm)
