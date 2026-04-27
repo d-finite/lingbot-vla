@@ -169,7 +169,8 @@ class PolicyPreprocessMixin:
             )
         delta_time = time.time() - s1
         print(f'sample_actions cost {delta_time} s')
-        observation['action'] = actions.squeeze(0)[:, :14].to(dtype=torch.float32, device='cpu')
+        action_slice_dim = getattr(self, 'action_dim', 14)
+        observation['action'] = actions.squeeze(0)[:, :action_slice_dim].to(dtype=torch.float32, device='cpu')
         if use_bf16:
             observation['state'] = observation['state'].to(dtype=torch.float32)
         data = self.normalizer.unnormalize(observation)
