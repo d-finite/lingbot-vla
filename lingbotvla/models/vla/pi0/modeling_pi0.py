@@ -4,8 +4,8 @@ import numpy as np
 import torch
 from torch import nn
 import torch.nn.functional as F
-from lerobot.common.policies.pi0.configuration_pi0 import PI0Config
-from lerobot.common.policies.pretrained import PreTrainedPolicy
+from lerobot.policies.pi0.configuration_pi0 import PI0Config
+from lerobot.policies.pretrained import PreTrainedPolicy
 from torch import Tensor, nn
 from typing import List, Optional, Tuple, Union
 from transformers import (
@@ -1816,6 +1816,12 @@ class PI0Policy(PreTrainedPolicy):
 
     def get_optim_params(self) -> dict:
         return self.parameters()
+
+    def select_action(self, batch, **kwargs):
+        raise NotImplementedError
+
+    def predict_action_chunk(self, batch, **kwargs):
+        raise NotImplementedError
 
     def forward(
         self, images, img_masks, state, lang_tokens, lang_masks, actions, joint_mask=None, action_is_pad=None, noise=None, time=None

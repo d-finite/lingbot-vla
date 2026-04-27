@@ -20,7 +20,7 @@ from abc import ABC
 import torch
 from transformers import AutoModel, AutoModelForCausalLM, AutoModelForVision2Seq, PreTrainedModel
 from transformers.modeling_utils import no_init_weights
-from lerobot.common.policies.pi0.configuration_pi0 import PI0Config
+from lerobot.policies.pi0.configuration_pi0 import PI0Config
 from ..utils import logging
 from ..utils.import_utils import is_torch_npu_available, is_vescale_available
 from .module_utils import init_empty_weights, load_model_weights

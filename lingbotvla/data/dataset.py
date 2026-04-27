@@ -20,10 +20,10 @@ import torch
 from datasets import load_dataset
 from datasets.distributed import split_dataset_by_node
 from torch.utils.data import Dataset, IterableDataset
-from lerobot.common.policies.pi0.configuration_pi0 import PI0Config
+from lerobot.policies.pi0.configuration_pi0 import PI0Config
 from torchvision.transforms.v2 import Resize
 from transformers import AutoTokenizer, AutoImageProcessor
-from lerobot.common.datasets.lerobot_dataset import LeRobotDataset, LeRobotDatasetMetadata
+from lerobot.datasets.lerobot_dataset import LeRobotDataset, LeRobotDatasetMetadata
 import json
 from ..distributed.parallel_state import get_parallel_state
 from ..utils import logging

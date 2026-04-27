@@ -3,8 +3,8 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 from torch.nn import CrossEntropyLoss
-from lerobot.common.policies.pi0.configuration_pi0 import PI0Config
-from lerobot.common.policies.pretrained import PreTrainedPolicy
+from lerobot.policies.pi0.configuration_pi0 import PI0Config
+from lerobot.policies.pretrained import PreTrainedPolicy
 from torch import Tensor, nn
 from typing import List, Optional, Tuple, Union, Callable, Dict, Any
 from functools import partial
@@ -1538,7 +1538,10 @@ class LingbotVlaPolicy(PreTrainedPolicy):
         self, observation: dict[str, Tensor], noise: Tensor | None = None
     ):
         pass
-    
+
+    def predict_action_chunk(self, batch, **kwargs):
+        raise NotImplementedError
+
     def forward(
         self, images, img_masks, state, lang_tokens, lang_masks, actions, joint_mask=None, action_is_pad=None, expert_imgs=None, label=None, noise=None, time=None, vlm_causal=False, use_ki=False, depth_targets=None, norm_qkv=False
     ) -> tuple[Tensor, dict[str, Tensor]]:
